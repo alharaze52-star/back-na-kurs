@@ -1,0 +1,106 @@
+{
+  "info": {
+    "_postman_id": "comic-con-auth-api",
+    "name": "Comic Con Tickets - Auth API",
+    "description": "API collection для тестирования регистрации и входа",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth Endpoints",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Иван\",\n  \"lastName\": \"Петров\",\n  \"email\": \"ivan@example.com\",\n  \"password\": \"password123\",\n  \"confirmPassword\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
+            },
+            "description": "Регистрация нового пользователя"
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ivan@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Вход в систему"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE",
+                "description": "Замените YOUR_TOKEN_HERE на полученный токен из login/register запроса"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/auth/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "me"]
+            },
+            "description": "Получить информацию о текущем пользователе (требует токена)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Server Status",
+      "item": [
+        {
+          "name": "Check API Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000"
+            },
+            "description": "Проверить статус API"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

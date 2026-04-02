@@ -1,0 +1,27 @@
+# 🚀 БЫСТРЫЙ СТАРТ - 3 ШАГА
+
+## Шаг 1: Запустите MongoDB
+- Откройте MongoDB Compass
+- Дождитесь подключения к localhost:27017
+
+## Шаг 2: Запустите Backend
+- В этой папке (в терминале) выполните:
+  npm start
+
+## Шаг 3: Тестируйте в Postman
+- Откройте Postman
+- Import → Comic-Con-Auth-API.postman_collection.json
+- Начните с запроса "Register User"
+
+---
+
+## 📞 Важные линки:
+- Backend API: http://localhost:5000
+- MongoDB Compass: mongodb://localhost:27017
+
+## ✅ Когда всё работает, вы должны увидеть:
+✅ Порт: 5000
+✅ Окружение: development
+✅ MongoDB: подключена
+
+Если что-то не работает - проверьте BACKEND_README.md
