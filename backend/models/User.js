@@ -29,6 +29,22 @@ const userSchema = new mongoose.Schema(
       minlength: [6, 'Пароль должен содержать минимум 6 символов'],
       select: false,
     },
+    avatar: {
+      type: String,
+      default: null,
+    },
+    verificationCode: {
+      type: String,
+      default: null,
+    },
+    verificationCodeExpires: {
+      type: Date,
+      default: null,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     createdAt: {
       type: Date,
       default: Date.now,

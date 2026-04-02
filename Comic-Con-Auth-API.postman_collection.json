@@ -1,16 +1,16 @@
 {
   "info": {
     "_postman_id": "comic-con-auth-api",
-    "name": "Comic Con Tickets - Auth API",
-    "description": "API collection для тестирования регистрации и входа",
+    "name": "Comic Con Tickets - Full API v2.0",
+    "description": "API collection для тестирования всех функций",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Auth Endpoints",
+      "name": "Auth - Регистрация и верификация",
       "item": [
         {
-          "name": "Register User",
+          "name": "1. Register User",
           "request": {
             "method": "POST",
             "header": [
@@ -30,12 +30,35 @@
               "port": "5000",
               "path": ["api", "auth", "register"]
             },
-            "description": "Регистрация нового пользователя"
-          },
-          "response": []
+            "description": "Регистрация и отправка кода на почту"
+          }
         },
         {
-          "name": "Login User",
+          "name": "2. Verify Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ivan@example.com\",\n  \"verificationCode\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/verify-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "verify-email"]
+            },
+            "description": "Верификация email по коду (код из письма)"
+          }
+        },
+        {
+          "name": "3. Login User",
           "request": {
             "method": "POST",
             "header": [
@@ -56,9 +79,13 @@
               "path": ["api", "auth", "login"]
             },
             "description": "Вход в систему"
-          },
-          "response": []
-        },
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profile - Управление профилем",
+      "item": [
         {
           "name": "Get Current User",
           "request": {
@@ -66,8 +93,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer YOUR_TOKEN_HERE",
-                "description": "Замените YOUR_TOKEN_HERE на полученный токен из login/register запроса"
+                "value": "Bearer YOUR_TOKEN_HERE"
               }
             ],
             "url": {
@@ -76,10 +102,158 @@
               "host": ["localhost"],
               "port": "5000",
               "path": ["api", "auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Иван\",\n  \"lastName\": \"Сидоров\"\n}"
             },
-            "description": "Получить информацию о текущем пользователе (требует токена)"
-          },
-          "response": []
+            "url": {
+              "raw": "http://localhost:5000/api/auth/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Upload Avatar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "src": "C:\\path\\to\\your\\image.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/upload-avatar",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "upload-avatar"]
+            },
+            "description": "Загрузить аватар (изображение)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tickets - Покупка билетов",
+      "item": [
+        {
+          "name": "Purchase Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventName\": \"Marvel Comic Con 2024\",\n  \"eventDate\": \"2024-06-15T18:00:00\",\n  \"eventLocation\": \"Moscow Convention Center\",\n  \"ticketType\": \"VIP\",\n  \"price\": 5000,\n  \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tickets/purchase",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tickets", "purchase"]
+            },
+            "description": "Купить билет (отправляется на почту)"
+          }
+        },
+        {
+          "name": "Get My Tickets",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/tickets/my-tickets",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tickets", "my-tickets"]
+            },
+            "description": "Получить все мои билеты"
+          }
+        },
+        {
+          "name": "Get Ticket Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/tickets/TICKET_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tickets", "TICKET_ID"]
+            },
+            "description": "Получить детали билета (замените TICKET_ID на ID билета)"
+          }
+        },
+        {
+          "name": "Cancel Ticket",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/tickets/TICKET_ID/cancel",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tickets", "TICKET_ID", "cancel"]
+            },
+            "description": "Отменить билет"
+          }
         }
       ]
     },
@@ -95,10 +269,8 @@
               "protocol": "http",
               "host": ["localhost"],
               "port": "5000"
-            },
-            "description": "Проверить статус API"
-          },
-          "response": []
+            }
+          }
         }
       ]
     }
